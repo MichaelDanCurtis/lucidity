@@ -24,7 +24,8 @@ for it. Incubation can be temporary while contracts stabilize.
 | Repo | Role | Notes |
 | --- | --- | --- |
 | `Galvo/` | Agent orchestration, agent negotiation, A2A-facing behavior, and collaboration workflows. | Galvo should use GalvoFS for workspaces and evidence, but should not own GalvoFS internals. |
-| `Femto/` | Agent-native execution fabric, A2E server, routing, runtime adapters, and compute receipts. | GalvoFS is currently incubating here because Femto is the first runtime integration point. |
+| `GalvoFS/` | Shared filesystem/storage substrate for Femto compute and Galvo agents. | Owns GalvoFS core, storage inputs, leases, manifests, receipts, snapshots, artifacts, and connector contracts. |
+| `Femto/` | Agent-native execution fabric, A2E server, routing, runtime adapters, and compute receipts. | Consumes GalvoFS through a local path dependency during active development. |
 | `tessera/` | Vault, key management, trust decisions, unwrap policy, certificates, revocation, and audit. | This is the trust substrate formerly discussed as RustyVault-shaped capability. |
 | `KubeNyx/` | Kubernetes intelligence, operations, scheduling, GPU cluster posture, and Kubernetes handoff. | Femto should call or hand off to KubeNyx for live Kubernetes execution rather than becoming KubeNyx. |
 | `galvo-memory/` | Memory/evidence subsystem for Galvo-family workflows. | Keep memory and evidence semantics aligned with GalvoFS receipts where they overlap. |
@@ -33,17 +34,20 @@ for it. Incubation can be temporary while contracts stabilize.
 
 ## GalvoFS Placement Decision
 
-GalvoFS should be its own repo eventually, but not until the storage input
-contract has stabilized.
+GalvoFS is now its own repo. The extraction happened after Storage Inputs V1
+landed for local-path imports and uploaded-object promotion.
 
 Current placement:
 
-- GalvoFS core and server integration incubate in `Femto/`.
-- Connector-side GalvoFS planning code incubates in `Femto/connectors/galvofs`.
-- The source of truth for near-term GalvoFS work is `Femto/ROADMAP.md` and
-  `Femto/docs/architecture/galvofs-shared-filesystem.md`.
+- GalvoFS core lives in `GalvoFS/crates/galvofs-core`.
+- Connector-side GalvoFS planning code lives in `GalvoFS/connectors/galvofs`.
+- Femto consumes GalvoFS by local path and keeps only integration code.
+- Lucidity tracks `GalvoFS/` as a submodule-style child repo pinned to the
+  GalvoFS repository commit.
+- The source of truth for near-term GalvoFS work is `GalvoFS/ROADMAP.md` and
+  `GalvoFS/docs/architecture/galvofs-shared-filesystem.md`.
 
-Target placement after Storage Inputs V1:
+Target growth shape:
 
 ```text
 lucidity/
@@ -156,6 +160,7 @@ lucidity/
   LUCIDITY.md
   AGENTS.md
   lucidity.code-workspace
+  GalvoFS/
   Femto/
   Galvo/
   tessera/
@@ -164,10 +169,9 @@ lucidity/
   GalvoLite/
 ```
 
-For now, keep building GalvoFS inside `Femto/` until the storage input
-materialization and writeback contracts are stable. When extraction happens,
-move GalvoFS into a sibling `GalvoFS/` repo and leave Femto as a consumer of
-the GalvoFS API/client crates.
+Keep GalvoFS shared code in `GalvoFS/`. Femto and Galvo should consume
+GalvoFS through local path dependencies during active development, then through
+versioned git or registry dependencies when the API stabilizes.
 
 ## Cross-Repo Rules
 

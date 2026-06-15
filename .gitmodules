@@ -1,0 +1,3 @@
+[submodule "GalvoFS"]
+	path = GalvoFS
+	url = https://github.com/MichaelDanCurtis/GalvoFS.git

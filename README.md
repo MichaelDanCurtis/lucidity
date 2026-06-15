@@ -9,3 +9,12 @@ AI session bootstrap rules.
 
 Open [lucidity.code-workspace](lucidity.code-workspace) to work across the
 family from one editor window.
+
+GalvoFS is tracked from this coordination repo as a submodule-style child repo:
+
+```bash
+git submodule update --init --recursive
+```
+
+The GalvoFS source of truth remains
+[MichaelDanCurtis/GalvoFS](https://github.com/MichaelDanCurtis/GalvoFS).

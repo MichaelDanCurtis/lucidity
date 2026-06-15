@@ -10,6 +10,5 @@ Then read the target repo's local instructions:
 4. Any architecture doc directly referenced by the task.
 
 This is a multi-repo system. Do not assume that a subsystem belongs to the repo
-where it is temporarily incubating. In particular, GalvoFS currently incubates
-inside `Femto/`, but the intended long-term home is a sibling `GalvoFS/` repo
-after Storage Inputs V1 stabilizes.
+where it was first incubated. GalvoFS now lives in the sibling `GalvoFS/` repo;
+Femto consumes it as a shared storage substrate.

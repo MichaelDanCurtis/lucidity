@@ -3,6 +3,22 @@
     {
       "name": "Lucidity",
       "path": "."
+    },
+    {
+      "name": "GalvoFS",
+      "path": "GalvoFS"
+    },
+    {
+      "name": "Femto",
+      "path": "Femto"
+    },
+    {
+      "name": "Galvo",
+      "path": "Galvo"
+    },
+    {
+      "name": "Tessera",
+      "path": "tessera"
     }
   ],
   "settings": {

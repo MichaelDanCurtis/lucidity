@@ -1,0 +1,22 @@
+# Child product repos stay versioned independently.
+/Femto/
+/Galvo/
+/GalvoLite/
+/KubeNyx/
+/Prizmanyx/
+/galvo-memory/
+/tessera/
+
+# Local scratch and archival files at the coordination-root level.
+/.DS_Store
+/files/
+/*.zip
+/*.excalidraw
+/Untitled-*.excalidraw
+/LUCIDITY-FEATURE-SPECS.md
+
+# Build and editor noise if tools are run from the root.
+/.worktrees/
+/.serena/
+target/
+node_modules/

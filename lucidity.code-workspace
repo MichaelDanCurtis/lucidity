@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "Lucidity",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/target": true,
+      "**/.worktrees": true
+    },
+    "search.exclude": {
+      "**/target": true,
+      "**/.worktrees": true,
+      "**/.git": true
+    }
+  }
+}

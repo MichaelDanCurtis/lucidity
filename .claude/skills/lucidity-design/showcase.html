@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucidity Design — reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-ui:'Space Grotesk',system-ui,sans-serif; --font-mono:'Space Mono',ui-monospace,monospace;
+    --accent:#ff6a4d;
+    --glass-fill:rgba(9,28,36,0.32); --glass-border:rgba(180,240,245,0.14); --glass-specular:rgba(205,250,255,0.32);
+    --glass-blur-deep:24px; --glass-blur:13px; --glass-blur-clear:2px;
+    --radius:4px; --ease-out:cubic-bezier(.25,.1,.25,1); --dur-fog:400ms;
+    --text-display:#fff; --text-primary:rgba(234,253,255,.9); --text-secondary:rgba(190,235,240,.55);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--font-ui);background:#05111a;color:var(--text-primary);min-height:100vh;
+    display:flex;align-items:center;justify-content:center;padding:28px}
+  .script{font-family:'Marcellus',serif;display:inline-block;color:#fff}
+  /* ---- stage + field ---- */
+  .stage{position:relative;overflow:hidden;border-radius:8px;width:100%;max-width:860px;min-height:480px;padding:16px;
+    background:radial-gradient(130% 115% at 70% 14%, #0c2a39 0%, #07181f 55%, #040d12 100%)}
+  .warm{position:absolute;inset:0;pointer-events:none;filter:blur(12px);
+    background:radial-gradient(56% 64% at 4% 2%, rgba(232,200,156,.5), transparent 66%)}
+  .field{position:absolute;inset:0;pointer-events:none}
+  .sq{position:absolute;transform:translate(-50%,-50%);mix-blend-mode:screen;border-radius:2px}
+  /* ---- glass chrome ---- */
+  .glass{position:relative;background:var(--glass-fill);
+    -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(1.4);backdrop-filter:blur(var(--glass-blur)) saturate(1.4);
+    border:1px solid var(--glass-border);border-top-color:var(--glass-specular);border-radius:var(--radius)}
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:9px 13px}
+  .brand{font-size:18px;font-weight:600;color:#eafdff;letter-spacing:-.01em}
+  .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-secondary)}
+  .row{position:relative;display:flex;gap:12px;margin-top:12px}
+  .rail{flex:none;width:44px;display:flex;flex-direction:column;align-items:center;gap:14px;padding:14px 0}
+  .dot{width:15px;height:15px;border-radius:3px;background:rgba(190,235,240,.22)}
+  .dot.on{background:var(--accent);box-shadow:0 0 12px rgba(255,106,77,.7)}
+  .main{flex:1;display:flex;flex-direction:column;gap:12px}
+  .greet{font-size:44px;font-weight:600;color:#fff;letter-spacing:-.02em;line-height:1}
+  .sub{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-secondary);margin-top:9px}
+  /* ---- flat content cards (focal-plane dial) ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .card{border-radius:var(--radius);padding:12px;background:rgba(11,32,40,.4);border:1px solid rgba(180,240,245,.12);
+    border-top-color:rgba(205,250,255,.24);-webkit-backdrop-filter:blur(13px) saturate(1.3);backdrop-filter:blur(13px) saturate(1.3);
+    opacity:.82;transition:backdrop-filter var(--dur-fog) var(--ease-out),-webkit-backdrop-filter var(--dur-fog) var(--ease-out),opacity var(--dur-fog),transform var(--dur-fog),border-color var(--dur-fog)}
+  .cval{font-family:var(--font-mono);font-size:24px;color:#fff;margin:7px 0 1px}
+  .csub{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(190,235,240,.42)}
+  .card.alarm{backdrop-filter:blur(var(--glass-blur-clear)) saturate(1.4);-webkit-backdrop-filter:blur(var(--glass-blur-clear)) saturate(1.4);opacity:1;
+    background:rgba(255,106,77,.15);border-color:rgba(255,106,77,.48);border-top-color:rgba(255,210,190,.5)}
+  .card.alarm .csub{color:#ffb39e}
+  .cards:has(.card:hover) .card:not(:hover){backdrop-filter:blur(var(--glass-blur-deep)) saturate(1.1);-webkit-backdrop-filter:blur(var(--glass-blur-deep)) saturate(1.1);opacity:.4;transform:scale(.985)}
+  .card:hover{backdrop-filter:blur(var(--glass-blur-clear)) saturate(1.5);-webkit-backdrop-filter:blur(var(--glass-blur-clear)) saturate(1.5);opacity:1;border-color:rgba(205,250,255,.4);transform:translateY(-1px)}
+  .cap{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(190,235,240,.4);text-align:center;margin-top:13px}
+  @media (prefers-reduced-transparency: reduce){
+    .glass,.card{background:#0b2029;backdrop-filter:none;-webkit-backdrop-filter:none}
+  }
+  @media (prefers-reduced-motion: reduce){ .card{transition:none} }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="warm"></div>
+    <div class="field" id="field"></div>
+
+    <div class="glass bar">
+      <span class="brand"><span class="script">L</span>ucidity</span>
+      <span class="lbl">SAMPLE RATE · RESOLVING</span>
+    </div>
+
+    <div class="row">
+      <div class="glass rail">
+        <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+      <div class="main">
+        <div>
+          <div class="greet"><span class="script">L</span>ucid <span class="script">M</span>orning</div>
+          <div class="sub">06:14 · DREAM → LUCID · 24 UNREAD</div>
+        </div>
+        <div class="cards">
+          <div class="card"><span class="lbl">Inbox</span><div class="cval">24</div><span class="csub">Unread</span></div>
+          <div class="card alarm"><span class="lbl" style="color:#ffb39e">Alarm</span><div class="cval">06:14</div><span class="csub">Snooze?</span></div>
+          <div class="card"><span class="lbl">Sync</span><div class="cval">OK</div><span class="csub">2m ago</span></div>
+        </div>
+        <div class="cap">flat content · glass chrome · square-bokeh field — hover a panel (attention = the inverse of blur)</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var f=document.getElementById('field'); if(!f) return;
+  var shade=['38,86,100','30,74,88','46,98,110','52,84,92','34,80,96'];
+  var beige=['232,200,156','240,214,172','246,224,188'];
+  var glassy=['168,232,240','140,215,232','120,205,228'];
+  var fx=46, fy=34;
+  for(var i=0;i<66;i++){
+    var x=Math.random()*106-3, y=Math.random()*106-3;
+    var t=Math.max(0,Math.min(1,y/100));
+    var dx=(x-fx)/58, dy=(y-fy)/52, d=Math.min(1,Math.sqrt(dx*dx+dy*dy));
+    var size=4+d*d*30+Math.random()*5;
+    var blur=(0.6+d*d*13)*(1-0.5*t);
+    var c, op;
+    if(Math.random()<0.12+0.20*(1-t)){
+      var warmward=(x<46&&y<48);
+      c=warmward?beige[(Math.random()*beige.length)|0]:glassy[(Math.random()*glassy.length)|0];
+      op=Math.max(0.15,Math.min(0.72,(0.6-d*0.25)*(0.75+0.3*(1-t))*(0.7+Math.random()*0.4)));
+    } else {
+      c=shade[(Math.random()*shade.length)|0];
+      op=Math.max(0.06,Math.min(0.3,(0.32-d*0.15)*(0.6+Math.random()*0.5)));
+    }
+    var s=document.createElement('div'); s.className='sq';
+    s.style.cssText='left:'+x+'%;top:'+y+'%;width:'+size.toFixed(1)+'px;height:'+size.toFixed(1)
+      +'px;filter:blur('+blur.toFixed(1)+'px);opacity:'+op.toFixed(2)+';background:rgba('+c+',0.9)';
+    f.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
